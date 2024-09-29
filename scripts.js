@@ -1,115 +1,108 @@
-    document.getElementById('taxon-search').addEventListener('input', async function() {
-        const searchTerm = this.value;
-        const suggestions = document.getElementById('suggestions');
-        suggestions.innerHTML = '';
+document.getElementById("generate").addEventListener("click", async function () {
+    // Retrieve values from input fields
+    const taxon = document.getElementById("taxon").value;
+    const nelat = document.getElementById("nelat").value;
+    const nelng = document.getElementById("nelng").value;
+    const swlat = document.getElementById("swlat").value;
+    const swlng = document.getElementById("swlng").value;
+    const maxResults = document.getElementById("maxResults").value;
+    const maxPerSpecies = document.getElementById("maxPerSpecies").value;
+    const searchTerm = document.getElementById("searchTerm").value;
 
-        if (searchTerm.length < 3) {
-            suggestions.style.display = 'none';
-            return; // Show suggestions only if at least 3 characters are typed
-        }
+    // Construct the API query URL
+    const url = `https://api.inaturalist.org/v1/observations?iconic_taxa=${taxon}&nelat=${nelat}&nelng=${nelng}&swlat=${swlat}&swlng=${swlng}&quality_grade=research&per_page=${maxResults}`;
 
-        // Fetch taxon suggestions
-        try {
-            const response = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${searchTerm}`);
-            const data = await response.json();
+    try {
+        // Fetch data from the iNaturalist API
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        // Display the total results
+        const totalResults = data.total_results;
+        document.getElementById("results").innerHTML = `<p>Total Results: ${totalResults}</p><p>Query URL: ${url}</p>`;
+        
+        // Extract species from the results
+        const observations = data.results;
+        const speciesCount = {};
+        const flashcards = [];
 
-            data.results.slice(0, 5).forEach(result => {
-                const suggestionItem = document.createElement('div');
-                suggestionItem.textContent = `${result.name} (${result.common_name || 'No common name'})`;
-                suggestionItem.onclick = () => {
-                    document.getElementById('taxon-search').value = result.id; // Set taxon ID
-                    suggestions.style.display = 'none';
-                };
-                suggestions.appendChild(suggestionItem);
-            });
+        // Build flashcards
+        for (const observation of observations) {
+            const species = observation.species_guess || "Unknown Species";
+            const taxonId = observation.taxon_id;
+            const photos = observation.photos;
 
-            if (suggestions.innerHTML) {
-                suggestions.style.display = 'block'; // Show suggestions if there are any
-            } else {
-                suggestions.style.display = 'none'; // Hide if no suggestions
-            }
-        } catch (error) {
-            console.error('Error fetching taxon suggestions:', error);
-        }
-    });
-
-    document.getElementById('flashcard-form').addEventListener('submit', async function(event) {
-        event.preventDefault();
-
-        const nelat = document.getElementById('nelat').value;
-        const nelng = document.getElementById('nelng').value;
-        const swlat = document.getElementById('swlat').value;
-        const swlng = document.getElementById('swlng').value;
-        const group = document.getElementById('group').value;
-        const taxonId = document.getElementById('taxon-search').value;
-        const maxPerSpecies = parseInt(document.getElementById('max-per-species').value) || Infinity; // Default to Infinity if not set
-
-        // Base API URL with query parameters
-        let apiUrl = `https://api.inaturalist.org/v1/observations?iconic_taxa=${group}&nelat=${nelat}&nelng=${nelng}&swlat=${swlat}&swlng=${swlng}&quality_grade=research`;
-
-        // If a specific taxon ID is selected, add it to the query
-        if (taxonId) {
-            apiUrl += `&taxon_id=${taxonId}`;
-        }
-
-        // Display the query URL
-        document.getElementById('api-url').innerText = apiUrl;
-
-        let totalResults = 0;
-        let totalObservations = 0;
-        let allSpecies = [];
-        let page = 1;
-
-        try {
-            let moreResults = true;
-            while (moreResults) {
-                // Fetch each page of results
-                const response = await fetch(apiUrl + `&per_page=200&page=${page}`);
-                const data = await response.json();
-                
-                if (data.results.length > 0) {
-                    totalObservations += data.total_results; // Keep track of total observations
-                    allSpecies = allSpecies.concat(data.results);
-                }
-
-                // Check if there are more pages
-                if (data.results.length < 200) {
-                    moreResults = false;
-                }
-                
-                page++;
+            // Initialize species count if not already done
+            if (!speciesCount[species]) {
+                speciesCount[species] = 0;
             }
 
-            // Limit results to a maximum of 100
-            const speciesCount = {};
-            allSpecies = allSpecies.filter(result => {
-                const speciesName = result.species_guess || 'Unknown species';
-                speciesCount[speciesName] = (speciesCount[speciesName] || 0) + 1;
-                return speciesCount[speciesName] <= maxPerSpecies; // Limit by max per species
-            }).slice(0, 100); // Take the first 100 observations after filtering
-
-            totalResults = allSpecies.length;
-
-            // Display the total observations
-            document.getElementById('total-observations').innerText = totalObservations;
-
-            // Display the displayed results
-            document.getElementById('total-results').innerText = totalResults;
-
-            // Display the message for showing top results
-            document.getElementById('showing-message').innerText = `Showing top ${totalResults} results:`;
-
-            // Clear the species list
-            const speciesList = document.getElementById('species-list');
-            speciesList.innerHTML = '';
-
-            // Populate the species list
-            allSpecies.forEach(result => {
-                const speciesItem = document.createElement('li');
-                speciesItem.textContent = result.species_guess || 'Unknown species';
-                speciesList.appendChild(speciesItem);
-            });
-        } catch (error) {
-            console.error('Error fetching data from iNaturalist API:', error);
+            // Limit observations per species
+            if (speciesCount[species] < maxPerSpecies) {
+                speciesCount[species]++;
+                flashcards.push({
+                    species,
+                    commonName: observation.common_name || "Unknown Common Name",
+                    scientificName: observation.scientific_name || "Unknown Scientific Name",
+                    photos: photos.map(photo => photo.url)
+                });
+            }
         }
+
+        // Shuffle flashcards
+        flashcards.sort(() => Math.random() - 0.5);
+
+        // Setup flashcards display
+        displayFlashcards(flashcards);
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+});
+
+function displayFlashcards(flashcards) {
+    let currentCardIndex = 0;
+    const learned = [];
+    const toLearn = [...flashcards];
+
+    const flashcardContainer = document.getElementById("flashcards-container");
+    const flashcardImage = document.getElementById("flashcard-image");
+    const flashcardNames = document.getElementById("flashcard-names");
+    const progress = document.getElementById("progress");
+
+    flashcardContainer.style.display = "block";
+    updateFlashcard();
+
+    document.getElementById("correct").addEventListener("click", () => {
+        learned.push(toLearn[currentCardIndex]);
+        nextCard();
     });
+
+    document.getElementById("incorrect").addEventListener("click", () => {
+        nextCard();
+    });
+
+    function nextCard() {
+        toLearn.splice(currentCardIndex, 1);
+        if (toLearn.length === 0) {
+            alert("You've completed the flashcards!");
+            reset();
+            return;
+        }
+        currentCardIndex = Math.floor(Math.random() * toLearn.length);
+        updateFlashcard();
+    }
+
+    function updateFlashcard() {
+        const card = toLearn[currentCardIndex];
+        flashcardImage.src = card.photos[0]; // Show first photo
+        flashcardNames.innerHTML = `<p>${card.species}</p>`;
+        progress.innerHTML = `Learned: ${learned.length}, Remaining: ${toLearn.length}`;
+    }
+
+    function reset() {
+        learned.length = 0;
+        toLearn.length = 0;
+        flashcardContainer.style.display = "none";
+        document.getElementById("results").innerHTML = "";
+    }
+}
