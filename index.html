@@ -3,20 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iNaturalist Flashcards Query</title>
+    <title>iNaturalist Flashcards Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f8ff;
+        }
+        h1, h3 {
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+        }
+        .form-section {
+            margin-bottom: 15px;
+        }
+        input[type="text"], select {
+            padding: 5px;
+            margin-left: 10px;
+        }
+        input[type="submit"] {
+            padding: 8px 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
     <h1>iNaturalist Flashcards Generator</h1>
 
-    <!-- Form for selecting taxon group and generating the query -->
+    <!-- Form for selecting coordinates and taxon group -->
     <form id="flashcard-form">
-        <label for="group">Select Group:</label>
-        <select id="group">
-            <option value="amphibia" selected>Amphibia</option>
-            <option value="reptilia">Reptilia</option>
-            <option value="mammalia">Mammalia</option>
-        </select>
-        <br>
+        <div class="form-section">
+            <label for="group">Select Group:</label>
+            <select id="group">
+                <option value="amphibia" selected>Amphibia</option>
+                <option value="reptilia">Reptilia</option>
+                <option value="mammalia">Mammalia</option>
+            </select>
+        </div>
+
+        <div class="form-section">
+            <label for="nelat">NE Latitude:</label>
+            <input type="text" id="nelat" value="-3.3818731533200204">
+        </div>
+
+        <div class="form-section">
+            <label for="nelng">NE Longitude:</label>
+            <input type="text" id="nelng" value="-72.35967096868059">
+        </div>
+
+        <div class="form-section">
+            <label for="swlat">SW Latitude:</label>
+            <input type="text" id="swlat" value="-3.639567136581359">
+        </div>
+
+        <div class="form-section">
+            <label for="swlng">SW Longitude:</label>
+            <input type="text" id="swlng" value="-73.30998835149309">
+        </div>
 
         <input type="submit" value="Generate Query">
     </form>
@@ -34,11 +93,10 @@
         document.getElementById('flashcard-form').addEventListener('submit', async function(event) {
             event.preventDefault();
 
-            const nelat = -3.3818731533200204;
-            const nelng = -72.35967096868059;
-            const swlat = -3.639567136581359;
-            const swlng = -73.30998835149309;
-
+            const nelat = document.getElementById('nelat').value;
+            const nelng = document.getElementById('nelng').value;
+            const swlat = document.getElementById('swlat').value;
+            const swlng = document.getElementById('swlng').value;
             const group = document.getElementById('group').value;
 
             // Build the iNaturalist API URL
