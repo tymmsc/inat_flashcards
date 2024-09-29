@@ -85,6 +85,8 @@
 
     <h3>Total Results:</h3>
     <p id="total-results">0</p>
+    
+    <h3 id="showing-message"></h3>
 
     <h3>Species List:</h3>
     <ul id="species-list"></ul>
@@ -99,25 +101,52 @@
             const swlng = document.getElementById('swlng').value;
             const group = document.getElementById('group').value;
 
-            // Build the iNaturalist API URL
-            const apiUrl = `https://api.inaturalist.org/v1/observations?iconic_taxa=${group}&nelat=${nelat}&nelng=${nelng}&swlat=${swlat}&swlng=${swlng}&quality_grade=research`;
+            // Base API URL with query parameters
+            let apiUrl = `https://api.inaturalist.org/v1/observations?iconic_taxa=${group}&nelat=${nelat}&nelng=${nelng}&swlat=${swlat}&swlng=${swlng}&quality_grade=research&per_page=200&page=`;
 
+            // Display the query URL
             document.getElementById('api-url').innerText = apiUrl;
 
+            let totalResults = 0;
+            let allSpecies = [];
+            let page = 1;
+
             try {
-                // Fetch the results from iNaturalist API
-                const response = await fetch(apiUrl);
-                const data = await response.json();
+                let moreResults = true;
+                while (moreResults) {
+                    // Fetch each page of results
+                    const response = await fetch(apiUrl + page);
+                    const data = await response.json();
+                    
+                    if (data.results.length > 0) {
+                        allSpecies = allSpecies.concat(data.results);
+                        totalResults += data.results.length;
+                    }
+
+                    // Check if there are more pages
+                    if (data.results.length < 200) {
+                        moreResults = false;
+                    }
+                    
+                    page++;
+                }
+
+                // Limit results to a maximum of 100
+                allSpecies = allSpecies.slice(0, 100);
+                totalResults = allSpecies.length;
 
                 // Display the total results
-                document.getElementById('total-results').innerText = data.total_results;
+                document.getElementById('total-results').innerText = totalResults;
+
+                // Display the message for showing top results
+                document.getElementById('showing-message').innerText = `Showing top ${totalResults} results:`;
 
                 // Clear the species list
                 const speciesList = document.getElementById('species-list');
                 speciesList.innerHTML = '';
 
                 // Populate the species list
-                data.results.forEach(result => {
+                allSpecies.forEach(result => {
                     const speciesItem = document.createElement('li');
                     speciesItem.textContent = result.species_guess || 'Unknown species';
                     speciesList.appendChild(speciesItem);
