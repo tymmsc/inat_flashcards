@@ -34,8 +34,8 @@ body {
     justify-content: center;
 }
 #flashcard {
-    margin: 20px;
-    padding: 20px;
+    margin: 2px;
+    padding: 2px;
     border: 1px solid #ccc;
     border-radius: 5px;
     width: calc(100% - 40px); /* adjust the width to your liking */
@@ -44,7 +44,7 @@ body {
 #flashcard .image-container {
     width: 100%;
     height: auto;
-    margin-right: 20px;
+    margin-right: 2px;
     border-radius: 0;
     overflow: hidden;
 }
@@ -61,7 +61,7 @@ body {
     align-items: center;
   }
   .lat-long-container label {
-    margin-right: 10px;
+    margin-right: 1px;
   }
   .lat-long-container input {
     width: 100px;
@@ -110,14 +110,14 @@ body {
         justify-content: center;
     }
     #flashcard {
-        margin: 20px;
-        padding: 20px;
+        margin: 2px;
+        padding: 2px;
         border: 1px solid #ccc;
     }
     #flashcard .image-container {
         width: auto;
         height: auto;
-        margin-right: 10px;
+        margin-right: 5px;
         overflow: hidden;
     }
     #flashcard .image-container img {
@@ -132,9 +132,7 @@ body {
     #flashcard #flashcard-name p {
         margin-bottom: 5px;
     }
-    #flashcard #correct, #flashcard #incorrect {
-        padding: 5px 10px;
-    }
+
     #flashcard #progress {
         margin-top: 10px;
     }
