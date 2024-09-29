@@ -53,12 +53,7 @@ body {
     max-height: 400px;
     object-fit: scale-down;
 }
-#flashcard #show-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer
-}
+
 
 .lat-long-container {
     display: flex;
@@ -72,21 +67,14 @@ body {
     width: 100px;
   }
 
-#flashcard #show-button:hover {
-}
+
 #flashcard #flashcard-name {
     margin-top: 20px;
 }
 #flashcard #flashcard-name p {
     margin-bottom: 10px;
 }
-#flashcard #correct, #flashcard #incorrect {
-    margin-top: 20px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+
 
 #flashcard #progress {
     margin-top: 20px;
@@ -137,9 +125,7 @@ body {
         height: 100%;
         object-fit: cover;
     }
-    #flashcard #show-button {
-        padding: 5px 10px;
-    }
+
     #flashcard #flashcard-name {
         margin-top: 10px;
     }
