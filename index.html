@@ -20,6 +20,8 @@
             padding: 20px 30px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
         }
         input, select, button {
             width: 100%;
@@ -43,12 +45,25 @@
             background-color: #fff;
             border-radius: 8px;
             width: 100%;
-            max-width: 400px;
+            max-width: 500px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         #result p {
             margin: 0;
             font-size: 18px;
+        }
+        #speciesList {
+            margin-top: 10px;
+            text-align: left;
+        }
+        #speciesList ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        #apiUrl {
+            font-size: 14px;
+            color: #555;
+            word-wrap: break-word;
         }
     </style>
 </head>
@@ -71,16 +86,20 @@
         <input type="text" id="query" name="query" placeholder="Enter group name" required>
 
         <label for="x_min">X Min (Longitude):</label>
-        <input type="number" step="any" id="x_min" name="x_min" placeholder="-100.0" required>
+        <!-- Default value added -->
+        <input type="number" step="any" id="x_min" name="x_min" placeholder="-73.30998835149309" value="-73.30998835149309" required>
 
         <label for="y_min">Y Min (Latitude):</label>
-        <input type="number" step="any" id="y_min" name="y_min" placeholder="40.0" required>
+        <!-- Default value added -->
+        <input type="number" step="any" id="y_min" name="y_min" placeholder="-3.639567136581359" value="-3.639567136581359" required>
 
         <label for="x_max">X Max (Longitude):</label>
-        <input type="number" step="any" id="x_max" name="x_max" placeholder="-99.0" required>
+        <!-- Default value added -->
+        <input type="number" step="any" id="x_max" name="x_max" placeholder="-72.35967096868059" value="-72.35967096868059" required>
 
         <label for="y_max">Y Max (Latitude):</label>
-        <input type="number" step="any" id="y_max" name="y_max" placeholder="41.0" required>
+        <!-- Default value added -->
+        <input type="number" step="any" id="y_max" name="y_max" placeholder="-3.3818731533200204" value="-3.3818731533200204" required>
 
         <label for="num_flashcards">Number of Flashcards (10-100):</label>
         <input type="number" id="num_flashcards" name="num_flashcards" min="10" max="100" value="10" required>
@@ -121,12 +140,22 @@
 
                 const data = await response.json();
 
+                // Display the API URL used
+                const apiUrlElement = `<p id="apiUrl"><strong>API URL:</strong> <a href="${apiUrl}" target="_blank">${apiUrl}</a></p>`;
+
                 // Display the number of results
                 const totalResults = data.total_results;
-                document.getElementById('result').innerHTML = `<p>Total Results: ${totalResults}</p>`;
+                const resultHtml = `<p><strong>Total Results:</strong> ${totalResults}</p>`;
+
+                // Extract species names from the results
+                const speciesNames = data.results.map(obs => obs.taxon.preferred_common_name || obs.taxon.name);
+                const speciesListHtml = `<div id="speciesList"><strong>Species Names:</strong><ul>${speciesNames.map(name => `<li>${name}</li>`).join('')}</ul></div>`;
+
+                // Combine all parts and display
+                document.getElementById('result').innerHTML = apiUrlElement + resultHtml + speciesListHtml;
             } catch (error) {
                 console.error('Error fetching data:', error);
-                document.getElementById('result').innerHTML = `<p style="color:red;">Error: ${error.message}</p>`;
+                document.getElementById('result').innerHTML = `<p style="color:red;"><strong>Error:</strong> ${error.message}</p>`;
             }
         });
     </script>
