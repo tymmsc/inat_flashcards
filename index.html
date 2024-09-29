@@ -5,26 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iNaturalist Flashcards</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="scripts.js" defer></script>
 </head>
 <body>
     <h1>iNaturalist Flashcards</h1>
-    
-    <div>
-        <label for="taxon-search">Search Taxon:</label>
-        <input type="text" id="taxon-search" placeholder="Type to search...">
-        <div id="suggestions"></div>
-        
-        <label for="max-per-species">Max Observations per Species:</label>
-        <input type="number" id="max-per-species" placeholder="Enter number" min="1">
-        
-        <button id="generate">Generate</button>
-    </div>
+    <form id="flashcard-form">
+        <label for="group">Select Group:</label>
+        <select id="group">
+            <option value="amphibia">Amphibia</option>
+            <option value="reptilia">Reptilia</option>
+            <option value="mammalia">Mammalia</option>
+        </select>
 
-    <div id="results"></div>
-    
-    <div id="flashcards-container" style="display:none;">
+        <label for="taxon-search">Search for Taxon:</label>
+        <input type="text" id="taxon-search" placeholder="Type to search...">
+        <div id="suggestions" style="display:none;"></div>
+
+        <label for="nelat">North East Latitude:</label>
+        <input type="text" id="nelat" value="-3.3818731533200204">
+
+        <label for="nelng">North East Longitude:</label>
+        <input type="text" id="nelng" value="-72.35967096868059">
+
+        <label for="swlat">South West Latitude:</label>
+        <input type="text" id="swlat" value="-3.639567136581359">
+
+        <label for="swlng">South West Longitude:</label>
+        <input type="text" id="swlng" value="-73.30998835149309">
+
+        <label for="max-per-species">Max per Species:</label>
+        <input type="number" id="max-per-species" placeholder="e.g., 5">
+
+        <button type="submit">Generate</button>
+    </form>
+
+    <p id="showing-message"></p>
+    <p>API Query: <span id="api-url"></span></p>
+    <p>Total Observations: <span id="total-observations"></span></p>
+
+   <div id="flashcards-container" style="display:none;">
         <div id="flashcard">
             <img id="flashcard-image" src="" alt="Flashcard Image">
             <div id="flashcard-names" style="display:none;">
@@ -40,9 +58,12 @@
         </div>
     </div>
 
-    <div id="query-url"></div>
-    <div id="total-results"></div>
-    <div id="species-list"></div>
 
+
+    
+    <p>Total Results: <span id="total-results"></span></p>
+    <ul id="species-list"></ul>
+
+    <script src="scripts.js"></script>
 </body>
 </html>
