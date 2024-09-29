@@ -5,32 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iNaturalist Flashcards</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 </head>
 <body>
     <h1>iNaturalist Flashcards</h1>
     <form id="flashcard-form">
-        <label for="group">Select Group:</label>
-        <select id="group">
+       <!--  <label for="group">Select Group:</label>
+       <select id="group">
             <option value="amphibia">Amphibia</option>
             <option value="reptilia">Reptilia</option>
             <option value="mammalia">Mammalia</option>
-        </select>
+        </select>-->
 
         <label for="taxon-search">Search for Taxon:</label>
         <input type="text" id="taxon-search" placeholder="Type to search...">
         <div id="suggestions" style="display:none;"></div>
 
-        <label for="nelat">North East Latitude:</label>
-        <input type="text" id="nelat" value="-3.3818731533200204">
+        <div class="lat-long-container">
+            <label for="nelat">NE Lat.:</label>
+            <input type="text" id="nelat" value="-3.3818731533200204">
 
-        <label for="nelng">North East Longitude:</label>
-        <input type="text" id="nelng" value="-72.35967096868059">
+            <label for="nelng">NE Long.:</label>
+            <input type="text" id="nelng" value="-72.35967096868059">
+        </div>
 
-        <label for="swlat">South West Latitude:</label>
-        <input type="text" id="swlat" value="-3.639567136581359">
 
-        <label for="swlng">South West Longitude:</label>
-        <input type="text" id="swlng" value="-73.30998835149309">
+        <div class="lat-long-container">
+
+            <label for="swlat">SW Lat.:</label>
+            <input type="text" id="swlat" value="-3.639567136581359">
+
+            <label for="swlng">SW Long.:</label>
+            <input type="text" id="swlng" value="-73.30998835149309">
+        </div>
 
         <label for="max-per-species">Max per Species:</label>
         <input type="number" id="max-per-species" placeholder="e.g., 5">
@@ -39,7 +47,7 @@
     </form>
 
     <p id="showing-message"></p>
-    <p>API Query: <span id="api-url"></span></p>
+    <!--<p>API Query: <span id="api-url"></span></p>-->
     <p>Total Observations: <span id="total-observations"></span></p>
 
    <div id="flashcards-container" style="display:none;">
@@ -50,7 +58,6 @@
                 <p id="common-name"></p>
                 <p id="scientific-name"></p>
             </div>
-        </div>
 
         <button id="correct" disabled>Correct</button>
         <button id="incorrect" disabled >Incorrect</button>
@@ -59,11 +66,13 @@
             <p id="remaining-count">Remaining: 0</p>
         </div>
     </div>
+</div>
 
 
 
 
-    <p>Total Results: <span id="total-results"></span></p>
+
+    <p># Species: <span id="total-results"></span></p>
     <ul id="species-list"></ul>
 
     <script src="scripts.js"></script>

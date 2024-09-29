@@ -11,11 +11,12 @@
         // Fetch taxon suggestions
         try {
             const response = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${searchTerm}`);
+            console.log(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${searchTerm}`)
             const data = await response.json();
 
             data.results.slice(0, 5).forEach(result => {
                 const suggestionItem = document.createElement('div');
-                suggestionItem.textContent = `${result.name} (${result.common_name || 'No common name'})`;
+                suggestionItem.textContent = `${result.name} (${result.preferred_common_name || 'No common name'})`;
                 suggestionItem.onclick = () => {
                     document.getElementById('taxon-search').value = result.id; // Set taxon ID
                     suggestions.style.display = 'none';
@@ -40,12 +41,12 @@
         const nelng = document.getElementById('nelng').value;
         const swlat = document.getElementById('swlat').value;
         const swlng = document.getElementById('swlng').value;
-        const group = document.getElementById('group').value;
+        //const group = document.getElementById('group').value;
         const taxonId = document.getElementById('taxon-search').value;
         const maxPerSpecies = parseInt(document.getElementById('max-per-species').value) || Infinity; // Default to Infinity if not set
 
         // Base API URL with query parameters
-        let apiUrl = `https://api.inaturalist.org/v1/observations?iconic_taxa=${group}&nelat=${nelat}&nelng=${nelng}&swlat=${swlat}&swlng=${swlng}&quality_grade=research`;
+        let apiUrl = `https://api.inaturalist.org/v1/observations?nelat=${nelat}&nelng=${nelng}&swlat=${swlat}&swlng=${swlng}&quality_grade=research`;
 
         // If a specific taxon ID is selected, add it to the query
         if (taxonId) {
@@ -53,7 +54,7 @@
         }
 
         // Display the query URL
-        document.getElementById('api-url').innerText = apiUrl;
+        //document.getElementById('api-url').innerText = apiUrl;
 
         let totalResults = 0;
         let totalObservations = 0;
@@ -79,7 +80,8 @@
 
                 page++;
             }*/
-            const response = await fetch(apiUrl + `&per_page=200&page=${page}`);
+            const response = await fetch(apiUrl + `&per_page=400&page=${page}`);
+
             const data = await response.json();
 
             /*
@@ -121,9 +123,10 @@
             const flashcards = [];
 
          // Build flashcards
+         console.log(observations);
          for (const observation of observations) {
-            const species = observation.taxon.preferred_common_name || "Unknown Species";
             const species_sci = observation.taxon.name;
+            const species = observation.taxon.preferred_common_name || species_sci || "Unknown Species";
             const taxonId = observation.taxon_id;
             const photos = observation.photos;
 
@@ -149,7 +152,26 @@
                     photos: flashcardPhotos
                 });
             }
+
         }
+        total_species = Object.keys(speciesCount).length;
+         // Display the displayed results
+         document.getElementById('total-results').innerText = total_species;
+
+
+         // Clear the species list
+         const speciesList = document.getElementById('species-list');
+         speciesList.innerHTML = '';
+
+         // Populate the species list
+         allSpecies = Object.keys(speciesCount);
+         allSpecies.forEach(result => {
+             const speciesItem = document.createElement('li');
+             speciesItem.textContent = result || 'Unknown species';
+             speciesList.appendChild(speciesItem);
+         });
+
+
         console.log(flashcards);
         flashcards.sort(() => Math.random() - 0.5);
 
