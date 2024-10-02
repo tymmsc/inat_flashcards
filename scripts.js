@@ -46,7 +46,7 @@
         const maxPerSpecies = parseInt(document.getElementById('max-per-species').value) || Infinity; // Default to Infinity if not set
 
         // Base API URL with query parameters
-        let apiUrl = `https://api.inaturalist.org/v1/observations?nelat=${nelat}&nelng=${nelng}&swlat=${swlat}&swlng=${swlng}&quality_grade=research`;
+        let apiUrl = `https://api.inaturalist.org/v1/observations?rank=species&nelat=${nelat}&nelng=${nelng}&swlat=${swlat}&swlng=${swlng}&quality_grade=research`;
 
         // If a specific taxon ID is selected, add it to the query
         if (taxonId) {
@@ -80,49 +80,22 @@
 
                 page++;
             }*/
-            const response = await fetch(apiUrl + `&per_page=400&page=${page}`);
+            const response1 = await fetch(apiUrl + `&per_page=400&page=${1}`);
+            const data1 = await response1.json();
 
-            const data = await response.json();
+            const response2 = await fetch(apiUrl + `&per_page=400&page=${2}`);
+            const data2 = await response2.json();
 
-            /*
-            // Limit results to a maximum of 100
-            const speciesCount = {};
-            allSpecies = allSpecies.filter(result => {
-                const speciesName = result.species_guess || 'Unknown species';
-                speciesCount[speciesName] = (speciesCount[speciesName] || 0) + 1;
-                return speciesCount[speciesName] <= maxPerSpecies; // Limit by max per species
-            }).slice(0, 100); // Take the first 100 observations after filtering
+        // Combine results from both pages
+            const combinedObservations = [...data1.results, ...data2.results];
+            const observations = combinedObservations.sort(() => Math.random() - 0.5);
 
-            totalResults = allSpecies.length;
-            const flashcards = [];
-            const observations = data.results;
 
-            // Display the total observations
-            document.getElementById('total-observations').innerText = totalObservations;
-
-            // Display the displayed results
-            document.getElementById('total-results').innerText = totalResults;
-
-            // Display the message for showing top results
-            document.getElementById('showing-message').innerText = `Showing top ${totalResults} results:`;
-
-            // Clear the species list
-            const speciesList = document.getElementById('species-list');
-            speciesList.innerHTML = '';
-
-            // Populate the species list
-            allSpecies.forEach(result => {
-                const speciesItem = document.createElement('li');
-                speciesItem.textContent = result.species_guess || 'Unknown species';
-                speciesList.appendChild(speciesItem);
-            });
-            */
-            // Extract species from the results
-            const observations = data.results;
             const speciesCount = {};
             const flashcards = [];
 
          // Build flashcards
+         species_dict = {};
          console.log(observations);
          for (const observation of observations) {
             const species_sci = observation.taxon.name;
@@ -138,13 +111,14 @@
             });
 
             // Initialize species count if not already done
-            if (!speciesCount[species]) {
-                speciesCount[species] = 0;
+            if (!speciesCount[species_sci]) {
+                speciesCount[species_sci] = 0;
+                species_dict[species_sci] = species;
             }
 
             // Limit observations per species
-            if (speciesCount[species] < maxPerSpecies) {
-                speciesCount[species]++;
+            if (speciesCount[species_sci] < maxPerSpecies) {
+                speciesCount[species_sci]++;
                 flashcards.push({
                     species: species,
                     commonName: species,
@@ -164,10 +138,10 @@
          speciesList.innerHTML = '';
 
          // Populate the species list
-         allSpecies = Object.keys(speciesCount);
+         allSpecies = Object.keys(species_dict).sort();
          allSpecies.forEach(result => {
              const speciesItem = document.createElement('li');
-             speciesItem.textContent = result || 'Unknown species';
+             speciesItem.textContent = result + ": " + species_dict[result]
              speciesList.appendChild(speciesItem);
          });
 

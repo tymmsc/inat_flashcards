@@ -1,7 +1,24 @@
+
+
+html {
+    width: 100vw;
+    margin: 100;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+
+
+  }
+
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
+    margin: 2px;
+    background-color: #777;
+    width: calc(100% - 200px); /* adjust the width to your liking */
+    overflow-x: hidden;
 }
+
+
 #flashcard-form {
     display: flex;
     flex-direction: column;
@@ -11,17 +28,18 @@ body {
     margin-bottom: 10px;
 }
 #flashcard-form input[type="text"] {
-    width: 100%;
+    width: 200px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+    margin-bottom: 10px;
+    margin-right: 2px;
 }
-#flashcard-form button[type="submit"] {
-    background-color: #4CAF50;
-    color: #fff;
+#flashcard-form button {
     padding: 10px 20px;
     border: none;
+    margin-top: 10px;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -32,6 +50,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    width: calc(100% - 40px); /* adjust the width to your liking */
 }
 #flashcard {
     margin: 2px;
@@ -42,7 +61,6 @@ body {
 
 }
 #flashcard .image-container {
-    width: 100%;
     height: auto;
     margin-right: 2px;
     border-radius: 0;
