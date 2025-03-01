@@ -40,22 +40,32 @@
     document.getElementById('generate').addEventListener('click', async function(event) {
         event.preventDefault();
 
-        /*const nelat = document.getElementById('nelat').value;
-        const nelng = document.getElementById('nelng').value;
-        const swlat = document.getElementById('swlat').value;
-        const swlng = document.getElementById('swlng').value;*/
+        const nelat = 26.911318201735867; //document.getElementById('nelat').value;
+        const nelng = 128.51032873640148;//document.getElementById('nelng').value;
+        const swlat = 25.99658667274922;//document.getElementById('swlat').value;
+        const swlng = 127.5407852793702;//document.getElementById('swlng').value;*/
         //const group = document.getElementById('group').value;
         const taxonId = document.getElementById('taxon-search').value;
-        const maxPerSpecies = parseInt(document.getElementById('max-per-species').value) || Infinity; // Default to Infinity if not set
+        const maxPerSpecies = parseInt(document.getElementById('max-per-species').value) || 5; // Default to 5 if not set
 
         const locId = document.getElementById('location-search').value;
         // Base API URL with query parameters
-        //let apiUrl = `https://api.inaturalist.org/v1/observations?rank=species&nelat=${nelat}&nelng=${nelng}&swlat=${swlat}&swlng=${swlng}&quality_grade=research`;
-        let apiUrl = `https://api.inaturalist.org/v1/observations?rank=species&place_id=${locId}&quality_grade=research`;
+        let apiUrl = `https://api.inaturalist.org/v1/observations?rank=species&quality_grade=research`;
+
+        //if a specific location is selected, add it to the query
+        if (locId) {
+            apiUrl += `&place_id=${locId}`;
+        }
+        else{ //default to specific loc
+            apiUrl = `https://api.inaturalist.org/v1/observations?rank=species&nelat=${nelat}&nelng=${nelng}&swlat=${swlat}&swlng=${swlng}&quality_grade=research`;
+        }
 
         // If a specific taxon ID is selected, add it to the query
         if (taxonId) {
             apiUrl += `&taxon_id=${taxonId}`;
+        }
+        else{
+            apiUrl+=`&taxon_id=${20979}`;
         }
         console.log(apiUrl);
 
@@ -101,9 +111,10 @@
             const nameToRankMap = {};
             for (const taxonId in taxonMap) {
                 const taxon = taxonMap[taxonId];
-                nameToRankMap[taxon.name] = taxon.rank;
+                nameToRankMap[taxon.name] = {rank: taxon.rank, commonname: taxon.commonname};
             }
             trees = buildTaxonomicTree(uniqueObservations, taxonMap);
+            console.log("tree time")
             console.log(trees);
             globalTree = mergeTrees(trees);
             console.log(globalTree);
@@ -209,17 +220,13 @@
         taxonIds = Array.from(taxonIdsSet);
 
         if (taxonIds.length === 0) return {}; // Return empty if no IDs provided
-        console.log(taxonIds);
-        console.log(taxonIds.length);
         const chunkSize = 20; // iNaturalist API may limit query length
         const taxonMap = {};
 
         const chunks = [];
         for (let i = 0; i < taxonIds.length; i += chunkSize) {
-            console.log("chunkingloop");
             chunks.push(taxonIds.slice(i, i + chunkSize));
         }
-        console.log('chunking complete');
         // Function to fetch a chunk of taxon IDs
         async function fetchChunk(ids) {
             const url = `https://api.inaturalist.org/v1/taxa?per_page=100&id=${ids.join(',')}`;
@@ -338,11 +345,17 @@
         searchRankIndex = rankOrder.indexOf(searchRank);
 
         for (const [taxon, children] of Object.entries(tree)) {
-            taxonRank = nameToRankMap[taxon];
+            taxonRank = nameToRankMap[taxon]['rank'];
+            taxonCommonName = nameToRankMap[taxon]['commonname'];
 
             include_taxon = rankOrder.indexOf(taxonRank) >= searchRankIndex;
             if (include_taxon) {
-                html += `<li>${taxon}`;
+                if(taxonRank=="species"){
+                    html += `<li><strong>${taxonCommonName} (${taxon})</strong>`;
+                }
+                else{
+                    html += `<li>${taxonCommonName} (${taxonRank} ${taxon})`;
+                }
             }
             if (Object.keys(children).length > 0) {
                 html += createTreeHtml(children, nameToRankMap, searchRank, include_taxon, true ); // Recursively create sub-trees
@@ -363,7 +376,6 @@
 
         const response = await fetch(`https://api.inaturalist.org/v1/places/autocomplete?q=${query}`);
         const data = await response.json();
-        console.log(response);
         let suggestions = document.getElementById("suggestions-loc");
         suggestions.innerHTML = "";
 
@@ -384,7 +396,6 @@
 
         const response = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${query}`);
         const data = await response.json();
-        console.log(response);
         let suggestions = document.getElementById("suggestions");
         suggestions.innerHTML = "";
 
