@@ -18,6 +18,111 @@ body {
     overflow-x: hidden;
 }
 
+table {
+    border: 1px solid black;
+  }
+  th, td {
+    border: 1px solid black;
+  }
+  th:first-child, td:first-child {
+    background-color: white;
+  }
+  th:last-child, td:last-child {
+    background-color: lightgray;
+  }
+
+
+.suggestions-dropdown {
+    position: absolute;
+    width: 270px; /* Keep it narrow */
+    background: rgb(241, 241, 241);
+    border: 0px solid #ccc;
+    border-radius: 4px;
+    list-style: none; /* Remove bullets */
+    padding: 0;
+    justify-content: center;
+    margin: 0; /* Small gap from input */
+    max-height: 90px; /* Limit height */
+    overflow-y: auto;
+    z-index: 1000; /* Ensure it stays above */
+    font-size: 14px; /* Keep text small */
+}
+
+.suggestions-dropdown li {
+    padding: 6px 6px;
+    cursor: pointer;
+    border-bottom: 0px solid #eee;
+    white-space: nowrap; /* Prevent wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add "..." if text is too long */
+}
+
+.suggestions-dropdown li:last-child {
+    border-bottom: none;
+}
+
+.suggestions-dropdown li:hover {
+    background: #e0e0e0;
+}
+
+.input-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-bottom:10px;
+}
+
+.centered-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    margin-bottom: 10px;
+}
+
+.tree-container {
+    font-size: 12px; /* Adjust as needed */
+    font-family: monospace;
+}
+
+.tree-container ul {
+    padding-left: 8px; /* Controls indentation */
+    list-style-type: none; /* Removes default bullets */
+}
+
+.tree-container li {
+    margin-left: 5px; /* Fine-tune spacing */
+    position: relative;
+    list-style: none; /* Removes default bullet points */
+}
+
+/* Add a vertical line before each list item */
+.tree-container li::before {
+    content: "";
+    position: absolute;
+    left: -2px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: black;
+}
+
+/* Add a horizontal connector to child elements */
+.tree-container li::after {
+    content: "";
+    position: absolute;
+    left: -2px;
+    top: 12px; /* Align with text */
+    width: 12px; /* Length of horizontal bar */
+    height: 1px;
+    background-color: black;
+}
+
+/* Remove vertical line from last child */
+.tree-container li:last-child::before {
+    height: 12px; /* Stop the line at the last item */
+}
+
 
 #flashcard-form {
     display: flex;
@@ -33,7 +138,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
-    margin-bottom: 10px;
+    margin-bottom: 1px;
     margin-right: 2px;
 }
 #flashcard-form button {

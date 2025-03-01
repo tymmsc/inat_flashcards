@@ -18,9 +18,20 @@
         </select>-->
 
         <label for="taxon-search">Search for Taxon:</label>
-        <input type="text" id="taxon-search" placeholder="Type to search...">
-        <div id="suggestions" style="display:none;"></div>
 
+        <div class="centered-container">
+        <div class="input-container">
+            <input type="text" id="taxon-search" placeholder="Seach for a taxon...">
+            <ul id="suggestions" class="suggestions-dropdown"></ul>
+        </div>
+
+        <label for="taxon-search">Search in Location:</label>
+        <div class="input-container">
+            <input id="location-search" type="text" placeholder="Search for a location...">
+            <ul id="suggestions-loc" class="suggestions-dropdown"></ul>
+        </div>
+        </div>
+<!----
         <div class="lat-long-container">
             <label for="nelat">NE Lat.:</label>
             <input type="text" id="nelat" value="26.911318201735867">
@@ -37,7 +48,7 @@
 
             <label for="swlng">SW Long.:</label>
             <input type="text" id="swlng" value="127.5407852793702">
-        </div>
+        </div>-->
 
         <label for="max-per-species">Max per Species:</label>
         <input type="number" id="max-per-species" placeholder="e.g., 5">
@@ -63,15 +74,33 @@
             <p id="learned-count">Learned: 0</p>
             <p id="remaining-count">Remaining: 0</p>
         </div>
+        </div>
     </div>
-</div>
 
 
 
 
 
     <p># Species: <span id="total-results"></span></p>
-    <ul id="species-list"></ul>
+
+    <table id="species-table" cellpadding="4">
+        <thead>
+          <tr>
+            <th>Scientific Name</th>
+            <th>Common Name</th>
+          </tr>
+        </thead>
+        <tbody id="species-tbody"></tbody>
+      </table>
+
+      <p></p>
+      <div id="tree-container"  class="tree-container"></div>
+
+
+
+
+
+
 
     <script src="scripts.js"></script>
 </body>
