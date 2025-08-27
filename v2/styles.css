@@ -21,14 +21,16 @@ body {
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
   width: 90vw;
-  max-width: 400px;
+  max-width: 500px;
   min-width: 320px;
-  height: 100vh; /* Fill full viewport height */
+  max-height: 100vh;
+  height: auto; /* Fill full viewport height */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start; /* Align children to top */
-  padding: 2rem 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  padding-top: 0rem;
   overflow: hidden; /* Prevent internal scroll */
 }
 .title-container {
@@ -36,7 +38,6 @@ body {
   text-align: center;
   margin-bottom: 0.8rem;
   margin-top: 0;
-  border: 1.5px solid #3a4d3c; /* Subtle, dark green border */
   padding: 0.5rem 0; /* Optional: add vertical padding for spacing */
   flex-shrink: 0; /* Prevent shrinking */
 }
@@ -67,7 +68,7 @@ body {
 .tabs-container {
   display: flex;
   justify-content: flex-start; /* Left-justified */
-  gap: 0.5rem;
+  gap: 0.2rem;
   margin-bottom: 0rem;
   border-bottom: 0px solid #3a4d3c; /* subtle line under tabs */
   align-self: stretch;
@@ -85,7 +86,7 @@ body {
   border-top-right-radius: 8px;
   transition: background-color 0.3s, border-color 0.3s, color 0.3s;
   flex-shrink: 0;
-  min-width: 80px; /* consistent relative size */
+  min-width: 60px; /* consistent relative size */
   text-align: center;
 }
 
@@ -102,11 +103,11 @@ body {
   cursor: default;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 500px) {
   .main-container {
     max-width: 500px;
-    min-height: 50vh;
-    padding: 3rem 2rem;
+    min-height: 95vh;
+    padding: 1rem 1.5rem 1.5rem 1.5rem;
   }
   .content-container {
     font-size: 1.1rem;
