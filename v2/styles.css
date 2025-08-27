@@ -23,7 +23,7 @@ body {
   width: 90vw;
   max-width: 500px;
   min-width: 320px;
-  max-height: 100vh;
+  max-height: 95vh;
   height: auto; /* Fill full viewport height */
   display: flex;
   flex-direction: column;
