@@ -1,0 +1,107 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #181c1b; /* Very dark, muted green-black */
+  color: #e2e8e4;      /* Soft, off-white text */
+  font-family: 'Segoe UI', Arial, sans-serif;
+  min-width: 320px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-container {
+  background: #242e27; /* Deep, muted green */
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
+  width: 90vw;
+  max-width: 400px;
+  min-width: 320px;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.title-container {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 0.8rem;
+  margin-top: 0rem;
+  border: 1.5px solid #3a4d3c; /* Subtle, dark green border */
+}
+
+.title-container h1 {
+  margin: 0;
+  font-size: 1.1rem; /* Small, professional title */
+  color: #b2c2b4;    /* Muted, soft green-gray */
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.content-container {
+  width: 100%;
+  flex: 1 1 auto;
+  background: #37483a; /* Slightly lighter than main container */
+  border-radius: 1px;
+  box-sizing: border-box;
+  padding: 1.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e2e8e4;
+  font-size: 1rem;
+  min-height: 0;
+}
+
+.tabs-container {
+  display: flex;
+  justify-content: flex-start; /* Left-justified */
+  gap: 0.5rem;
+  margin-bottom: 0rem;
+  border-bottom: 0px solid #3a4d3c; /* subtle line under tabs */
+  align-self: stretch;
+}
+
+.tab {
+  background-color: #202622; /* duller dark green */
+  color: #a0b0a0; /* muted text */
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+  flex-shrink: 0;
+  min-width: 80px; /* consistent relative size */
+  text-align: center;
+}
+
+.tab:hover:not(.active) {
+  background-color: #2a342e; /* slightly lighter on hover */
+  color: #c0d0c0;
+  border-bottom-color: #5a7a5a; /* subtle underline on hover */
+}
+
+.tab.active {
+  background-color: #37483a; /* same as content container background */
+  color: #e2e8e4; /* bright text */
+  border-bottom-color: #37483a; /* hide underline by matching background */
+  cursor: default;
+}
+
+@media (min-width: 600px) {
+  .main-container {
+    max-width: 500px;
+    min-height: 50vh;
+    padding: 3rem 2rem;
+  }
+  .content-container {
+    font-size: 1.1rem;
+  }
+}
+
