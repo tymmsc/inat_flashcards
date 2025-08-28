@@ -4,23 +4,54 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Polished Dark Green Page</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="base_styles.css" />
+  <link rel="stylesheet" href="form_styles.css"/>
 </head>
 <body>
   <div class="main-container">
     <div class="title-container">
-      <h1>iNaturalist flashcards 4</h1>
+      <h1>iNaturalist flashcards</h1>
     </div>
      <div class="tabs-container">
-          <button class="tab active" type="button">Tab 1</button>
-          <button class="tab" type="button">Tab 2</button>
-          <button class="tab" type="button">Tab 3</button>
-          <button class="tab" type="button">Tab 4</button>
+          <button class="tab active" type="button">Search</button>
+          <button class="tab" type="button">Cards</button>
+          <button class="tab" type="button">List</button>
+          <button class="tab" type="button">Tree</button>
       </div>
     <div class="content-container">
-       <!-- Content for the active tab goes here -->
-  <div class="content-container">
-    </div>
+        
+        <div class="tab-content" id="search-tab"> 
+            <form id="flashcard-form" class="flashcard-form">
+                <div class="form-row">
+                  <label for="taxon-name">Taxon name:</label>
+                  <input type="text" id="taxon-search" name="taxon-search"  placeholder="Seach for a taxon...">
+                  <input type="hidden" id="taxon-search-id">
+                  <ul id="suggestions" class="suggestions-dropdown"></ul>
+                </div>
+                <div class="form-row">
+                  <label for="location">Location:</label>
+                  <input type="text" id="location-search" name="location" placeholder="Search for a location...">
+                     <input type="hidden" id="location-search-id">
+                     <ul id="suggestions-loc" class="suggestions-dropdown"></ul> 
+                </div>
+                <div class="form-row small-input">
+                  <label for="max-per-species">Max # per species:</label>
+                  <input type="number" id="max-per-species" name="max-per-species" min="1" placeholder="4" />
+                </div>
+                <hr class="divider" />
+                <button type="submit" id="generate-btn" class="generate-btn">Generate flashcards</button>
+        </form>
+        
+        </div>
+
+        
+        <div class="tab-content" id="card-tab" style="display:none;"> flashcards </div>
+        <div class="tab-content" id="table-tab" style="display:none;"> table </div>
+        <div class="tab-content" id="tree-tab" style="display:none;"> phyyyylogyny  </div>
   </div>
+
+  <script src="tabs_logic.js"></script>
+  <script src="search_suggestions.js"></script>
+
 </body>
 </html>

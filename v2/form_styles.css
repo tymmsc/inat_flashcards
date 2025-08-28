@@ -1,0 +1,132 @@
+
+.flashcard-form {
+  max-width: 400px;
+  width: 100%;
+  max-height: 100%; /* Limit height to parent's height */
+  overflow-y: auto; /* Enable vertical scroll if needed */
+  margin: 0 0; /* center form horizontally */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0.1rem;
+  box-sizing: border-box;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  position:relative;
+
+}
+
+.form-row label {
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+  color: #b2c2b4;
+  width: 100%;
+  text-align: center;
+}
+
+.form-row input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1.5px solid #3a4d3c;
+  background-color: #202622;
+  color: #e2e8e4;
+  box-sizing: border-box;
+}
+
+/* Smaller input for max per species */
+.small-input input {
+  max-width: 80px;
+}
+
+
+
+.suggestions-dropdown {
+    position: absolute;
+    top:100%;
+    width: 100%; /* Keep it narrow */
+    background: #ffffff; /* White background */
+    list-style: none; /* Remove bullets */
+    padding: 0;
+    margin: 0px 0 0 0; /* Small gap from input */
+    max-height: 90px; /* Limit height */
+    overflow-y: auto;
+    z-index: 1000; /* Ensure it stays above */
+    font-size: 14px; /* Keep text small */
+    color: #000000; /* Black text */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* Subtle shadow for depth */
+}
+.suggestions-dropdown li {
+    padding: 8px 12px; /* Slightly more padding for better click area */
+    cursor: pointer;
+    border-bottom: 1px solid #eee; /* Light separator */
+    white-space: nowrap; /* Prevent wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add "..." if text is too long */
+    transition: background-color 0.2s ease;
+}
+.suggestions-dropdown li:last-child {
+    border-bottom: none;
+}
+.suggestions-dropdown li:hover,
+.suggestions-dropdown li:focus {
+    background: #f0f0f0; /* Light gray hover/focus background */
+    outline: none; /* Remove default focus outline */
+}
+
+
+@media (min-width: 500px) {
+    .form-row {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form-row label {
+    width: 50%;
+    text-align: right;
+    margin-right: 1rem;
+  }
+
+  .form-row input {
+    width: 90%;
+  }
+}
+
+
+
+
+/* Divider line above button */
+.divider {
+  width: 100%;
+  border: none;
+  border-top: 1.5px solid #5b5b5b;
+  margin: 1rem 0 0.5rem 0;
+}
+
+/* Generate button styling */
+.generate-btn {
+  width: 100%;
+  padding: 1rem 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #e2e8e4;
+  background-color: #242e27;
+  border: 2px solid #3a4d3c;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+  box-sizing: border-box;
+}
+
+.generate-btn:hover {
+  background-color: #37483a;
+  border-color: #5a7a5a;
+}
