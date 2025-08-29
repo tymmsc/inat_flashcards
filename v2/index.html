@@ -22,26 +22,30 @@
         
         <div class="tab-content" id="search-tab"> 
             <form id="flashcard-form" class="flashcard-form">
+
+              <div class="form-top">
                 <div class="form-row">
-                  <label for="taxon-name">Taxon name:</label>
-                  <input type="text" id="taxon-search" name="taxon-search"  placeholder="Seach for a taxon...">
+                  <label for="taxon-search">Taxon name:</label>
+                  <input type="text"  autocomplete="off" novalidate id="taxon-search" name="taxon-search"  placeholder="Seach for a taxon...">
                   <input type="hidden" id="taxon-search-id">
                   <ul id="suggestions" class="suggestions-dropdown"></ul>
                 </div>
                 <div class="form-row">
-                  <label for="location">Location:</label>
-                  <input type="text" id="location-search" name="location" placeholder="Search for a location...">
+                  <label for="location-search">Location:</label>
+                  <input type="text" id="location-search"  autocomplete="off" novalidate name="location" placeholder="Search for a location...">
                      <input type="hidden" id="location-search-id">
                      <ul id="suggestions-loc" class="suggestions-dropdown"></ul> 
                 </div>
                 <div class="form-row small-input">
                   <label for="max-per-species">Max # per species:</label>
-                  <input type="number" id="max-per-species" name="max-per-species" min="1" placeholder="4" />
+                  <input type="number" id="max-per-species"  autocomplete="off" novalidate name="max-per-species" min="1" placeholder="4" />
+                </div>
                 </div>
                 <hr class="divider" />
-                <button type="submit" id="generate-btn" class="generate-btn">Generate flashcards</button>
-        </form>
-        
+                <div class="form-bottom">
+                  <button type="submit" id="generate-btn" class="generate-btn">Generate flashcards</button>
+                </div>
+                </form>
         </div>
 
         
@@ -51,7 +55,7 @@
   </div>
 
   <script src="tabs_logic.js"></script>
-  <script src="search_suggestions.js"></script>
+  <script src="search_suggestions.js" defer></script>
 
 </body>
 </html>

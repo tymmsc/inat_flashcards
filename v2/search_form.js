@@ -48,5 +48,23 @@ async function searchINatTaxons(query) {
     });
 }
 
+  const form = document.getElementById('flashcard-form');
+
+  // On load, restore saved values
+  window.addEventListener('load', () => {
+    Array.from(form.elements).forEach(el => {
+      if (el.name && localStorage.getItem(el.name)) {
+        el.value = localStorage.getItem(el.name);
+        console.log(`loaded: ${el.name}, Place ID: ${el.value}`);
+      }
+    });
+  });
+
+  // On input, save the value
+  form.addEventListener('input', e => {
+    if (e.target.name) {
+      localStorage.setItem(e.target.name, e.target.value);
+    }
+  });
 
 
