@@ -179,6 +179,7 @@ function retrieveInatAddress(){
               });
                   // Switch active class
       document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      
       const cardsTabBtn = document.getElementById('cards-tab-btn');
       cardsTabBtn.classList.add('active');
 
