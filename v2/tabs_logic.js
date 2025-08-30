@@ -6,5 +6,6 @@ tabs.forEach((tab, idx) => {
     tab.classList.add('active');
     contents.forEach(c => c.style.display = 'none');
     contents[idx].style.display = 'block';
+    contents[idx].offsetHeight; // force reflow
   });
 });

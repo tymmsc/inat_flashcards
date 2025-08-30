@@ -1,0 +1,80 @@
+/* General text styles (match your forms) */
+#progress,
+#flashcard-name {
+  font-family: inherit;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #b2c2b4;
+  text-align: center;
+}
+
+/* Image container */
+.image-container {
+  flex: 1;
+  width: 100%;
+  max-width: 600px;
+  border: 2px solid #3a4d3c;
+  background: #202622;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.75rem 0;
+  box-sizing: border-box;
+  border-radius: 8px;
+  min-height: 200px; /* or something proportional */
+
+}
+
+/* Name container keeps stable height */
+.name-container {
+  height: 3.5em; /* ~2–3 lines */
+  text-align: center;
+  margin: 0.75rem 0;
+  color: #e2e8e4;
+}
+
+/* Buttons (shared style) */
+.tab-content button {
+  font-family: inherit;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 0.9rem 1.5rem;
+  border-radius: 12px;
+  border: 2px solid #3a4d3c;
+  background-color: #242e27;
+  color: #e2e8e4;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.tab-content button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tab-content button:active {
+  background-color: #070807;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tab-content button:hover:not(:disabled) {
+    border-color: #5a7a5a;
+  }
+}
+
+/* Show-name button spacing */
+#show-button {
+  margin-bottom: 2.5rem; /* bigger gap before bottom buttons */
+}
+
+/* Bottom buttons */
+.answer-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 4rem; /* more distance between Correct/Incorrect */
+  margin-bottom: 1.5rem;
+}
+
+.answer-buttons button {
+  min-width: 130px; /* larger buttons */
+}

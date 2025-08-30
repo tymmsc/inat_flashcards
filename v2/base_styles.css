@@ -139,3 +139,10 @@ body {
 .tab-content.active {
   display: flex;             /* show active tab */
 }
+
+.tab.disabled {
+    color: #666;           /* gray text */
+    background-color: #202622; /* same as normal background */
+    cursor: not-allowed;
+    pointer-events: none;   /* prevents clicking */
+}

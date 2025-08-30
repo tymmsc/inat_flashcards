@@ -92,6 +92,8 @@ function retrieveInatAddress(){
         let page = 1;
         console.log('searching...')
         try {
+              // Remove "disabled" class from all tabs except the first
+
             let moreResults = true;
  
             const response1 = await fetch(apiUrl + `&per_page=400&page=${1}`);
@@ -172,6 +174,18 @@ function retrieveInatAddress(){
 
         // Setup flashcards display
         //displayFlashcards(flashcards);
+        document.querySelectorAll('.tab.disabled').forEach(tab => {
+        tab.classList.remove('disabled');
+              });
+                  // Switch active class
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      const cardsTabBtn = document.getElementById('cards-tab-btn');
+      cardsTabBtn.classList.add('active');
+
+      // Switch the content
+      document.querySelectorAll('.tab-content').forEach(tc => tc.style.display = 'none');
+      document.getElementById('card-tab').style.display = 'flex'; // or 'block' depending on layout
+
 
         } catch (error) {
             console.error('Error fetching data from iNaturalist API:', error);

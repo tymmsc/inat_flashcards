@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="base_styles.css" />
   <link rel="stylesheet" href="form_styles.css"/>
   <link rel="stylesheet" href="trees_styles.css"/>
+  <link rel="stylesheet" href="flashcard-styles.css"/>
 
 </head>
 
@@ -17,10 +18,10 @@
       <h1>iNaturalist flashcards</h1>
     </div>
      <div class="tabs-container">
-          <button class="tab active" type="button">Search</button>
-          <button class="tab" type="button">Cards</button>
-          <button class="tab" type="button">List</button>
-          <button class="tab" type="button">Tree</button>
+          <button class="tab active" id='search-tab-button' type="button">Search</button>
+          <button class="tab disabled" id="cards-tab-btn" type="button">Cards</button>
+          <button class="tab disabled" id='list-tab-button' type="button">List</button>
+          <button class="tab disabled" id='tree-tab-button' type="button">Tree</button>
       </div>
 
     <div class="content-container">
@@ -82,7 +83,33 @@
                 </form>
         </div>
 
-        <div class="tab-content" id="card-tab" style="display:none;"> flashcards </div>
+      <div class="tab-content" id="card-tab" style="display:none;"> 
+            <!-- Progress at top -->
+            <div id="progress">Progress: 0/10</div>
+
+            <!-- Image container fills remaining space -->
+            <div id="flashcard-images" class="image-container">
+              <!-- image will go here -->
+            </div>
+
+            <!-- Revealed name text (always reserved space) -->
+            <div id="flashcard-name" class="name-container">
+              <p id="common-name"></p>
+              <p id="scientific-name"></p>
+            </div>
+
+            <!-- Show name button -->
+            <button id="show-button">Show name</button>
+
+            <!-- Correct / Incorrect buttons at bottom -->
+            <div class="answer-buttons">
+              <button id="correct" disabled>Correct</button>
+              <button id="incorrect" disabled>Incorrect</button>
+            </div>
+
+        
+      </div>
+
         <div class="tab-content" id="table-tab" style="display:none;"> 
         
             <p># Species: <span id="total-results"></span></p>
