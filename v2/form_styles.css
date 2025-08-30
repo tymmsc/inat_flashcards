@@ -182,9 +182,20 @@
   box-sizing: border-box;
 }
 
+.generate-btn:active{
+    background-color: #070807;
+      border-color: #3a4d3c;
+}
+
+.generate-btn:focus {
+  outline: none;
+  border-color: #3a4d3c; /* reset to normal */
+}
+
+@media (hover: hover) and (pointer: fine){
 .generate-btn:hover {
-  background-color: #37483a;
   border-color: #5a7a5a;
+}
 }
 
 

@@ -1,0 +1,113 @@
+/* ----------------- List Tab (Table) ----------------- */
+
+#table-tab p {
+  margin-top:0.25rem;
+  margin-bottom: 0.8 rem;
+  font-family: Arial, sans-serif;
+  color: #e2e8e4;
+  text-align: center;
+}
+
+#table-tab {
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    overflow: auto; /* scroll if table is too big */
+    background-color: #242e27; /* dark background */
+    color: #e2e8e4;
+    border-radius: 12px;
+    border: 2px solid #3a4d3c;
+    font-family: Arial, sans-serif;
+    min-height: 0;
+}
+
+#species-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* evenly spaced columns */
+}
+
+#species-table th,
+#species-table td {
+    border: 1px solid #3a4d3c;
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    word-wrap: break-word;
+}
+
+#species-table th {
+    background-color: #37483a;
+    color: #e2e8e4;
+    font-size: 1.3rem;
+}
+
+#species-table tr:nth-child(even) {
+    background-color: #2d3a2d;
+}
+
+#species-table td:first-child {
+    font-weight: 700; /* bold */
+}
+
+#species-table td:last-child {
+    font-weight: 400; /* normal */
+    color: rgb(198, 198, 198);
+}
+
+/* ----------------- Tree Tab ----------------- */
+#tree-tab {
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    overflow: auto; /* allow scroll in both directions */
+    background-color: #242e27;
+    color: #e2e8e4;
+    border-radius: 12px;
+    border: 2px solid #3a4d3c;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    min-height: 0;
+}
+
+/* Tree list styling */
+.tree-container {
+    white-space: pre; /* preserve indentation */
+}
+
+.tree-container ul {
+    padding-left: 6px;
+    list-style-type: none; /* remove bullets */
+    list-style: none;
+}
+
+.tree-container li {
+    position: relative;
+    margin-left: 0;
+    padding-left: 6px;
+    list-style: none;
+}
+
+/* Connectors */
+.tree-container li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: #5a7a5a; /* lighter greenish line */
+}
+
+.tree-container li::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 6px;
+    height: 1px;
+    background-color: #5a7a5a;
+}
+
+.tree-container li:last-child::before {
+    height: 6px; /* stop vertical line at last item */
+}

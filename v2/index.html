@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Polished Dark Green Page</title>
+  <title>iNaturalist Flashcard Creator</title>
   <link rel="stylesheet" href="base_styles.css" />
   <link rel="stylesheet" href="form_styles.css"/>
+  <link rel="stylesheet" href="trees_styles.css"/>
+
 </head>
+
 <body>
   <div class="main-container">
     <div class="title-container">
@@ -18,8 +22,8 @@
           <button class="tab" type="button">List</button>
           <button class="tab" type="button">Tree</button>
       </div>
+
     <div class="content-container">
-        
         <div class="tab-content" id="search-tab"> 
             <form id="flashcard-form" class="flashcard-form">
 
@@ -41,13 +45,13 @@
                   <div class="form-row">
                     <label for="taxon-search">Taxon name:</label>
                     <input type="text"  autocomplete="off" novalidate id="taxon-search" name="taxon-search"  placeholder="Seach for a taxon...">
-                    <input type="hidden" id="taxon-search-id">
+                    <input type="hidden" id="taxon-search-id" name="taxon-search-id-hid">
                     <ul id="suggestions" class="suggestions-dropdown"></ul>
                   </div>
                   <div class="form-row">
                     <label for="location-search">Location:</label>
                     <input type="text" id="location-search"  autocomplete="off" novalidate name="location" placeholder="Search for a location...">
-                      <input type="hidden" id="location-search-id">
+                      <input type="hidden" id="location-search-id" name="location-search-id-hid">
                       <ul id="suggestions-loc" class="suggestions-dropdown"></ul> 
                   </div>
                 </div>
@@ -58,7 +62,7 @@
                 </div>
 
                 </div>
-
+                </div>
                 <hr class="divider" />
 
                 <div class="form-bottom">
@@ -69,23 +73,41 @@
                     </div>
                   <div class="lower button">
                       <button type="submit" id="generate-btn" class="generate-btn">Generate flashcards</button>
-                      <p class="error-text">error placeholder</p>
+                      <p class="error-text" id="error-text"> </p>
                   </div>
 
                 </div>
                 </div>
+                
                 </form>
         </div>
 
-        
         <div class="tab-content" id="card-tab" style="display:none;"> flashcards </div>
-        <div class="tab-content" id="table-tab" style="display:none;"> table </div>
-        <div class="tab-content" id="tree-tab" style="display:none;"> phyyyylogyny  </div>
+        <div class="tab-content" id="table-tab" style="display:none;"> 
+        
+            <p># Species: <span id="total-results"></span></p>
+            <table id="species-table" cellpadding="4">
+                <thead>
+                  <tr>
+                    <th>Scientific Name</th>
+                    <th>Common Name</th>
+                  </tr>
+                </thead>
+                <tbody id="species-tbody"></tbody>
+              </table>
+        </div>
+        <div class="tab-content" id="tree-tab" style="display:none;"> 
+          <div id="tree-container"  class="tree-container"></div>
+
+        </div>
   </div>
+  </div>
+
 
   <script src="tabs_logic.js"></script>
   <script src="search_suggestions.js"></script>
     <script src="search_form.js"></script>
+    <script src="flashcard_logic.js"></script>
 
 
 </body>

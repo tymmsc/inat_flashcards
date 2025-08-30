@@ -1,3 +1,5 @@
+//For the radio buttons to toggle the forms
+
 document.querySelectorAll('input[name="topFormChoice"]').forEach(radio => {
   radio.addEventListener('change', () => {
     document.querySelector('.form-top-inner.option1').style.display =
@@ -6,3 +8,5 @@ document.querySelectorAll('input[name="topFormChoice"]').forEach(radio => {
       radio.value === "option2" ? "block" : "none";
   });
 });
+
+
