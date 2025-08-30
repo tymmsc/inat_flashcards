@@ -1,6 +1,3 @@
-
-
-
 document.getElementById("location-search").addEventListener("input", function () {
     searchINatPlaces(this.value);
 });
@@ -20,10 +17,16 @@ async function searchINatPlaces(query) {
         let item = document.createElement("li");
         item.textContent = place.display_name;
         item.onclick = () => {
-            document.getElementById("location-search").value = place.display_name;
-            document.getElementById("location-search-id").value = place.id;
+            let e1 = document.getElementById("location-search");
+            e1.value = place.display_name;
+            let e2 = document.getElementById("location-search-id");
+            e2.value = place.id;
 
-            console.log(`Selected: ${place.display_name}, Place ID: ${place.id}`);
+            localStorage.setItem(e1.name, e1.value);
+            localStorage.setItem(e2.name, e2.value);
+
+
+            //console.log(`Selected: ${place.display_name}, Place ID: ${place.id}`);
             suggestions.innerHTML = ""; // Clear suggestions after selection
         };
         suggestions.appendChild(item);
@@ -43,8 +46,16 @@ async function searchINatTaxons(query) {
         item.textContent = `${taxon.name} (${taxon.preferred_common_name || 'No common name'})`;
 
         item.onclick = () => {
-            document.getElementById("taxon-search").value = taxon.name;
-            document.getElementById("taxon-search-id").value = taxon.id;
+            
+            let e1 = document.getElementById("taxon-search");
+            e1.value = taxon.name;
+            let e2 = document.getElementById("taxon-search-id");
+            e2.value = taxon.id;
+
+            localStorage.setItem(e1.name, e1.value);
+            localStorage.setItem(e2.name, e2.value);
+
+
 
             suggestions.innerHTML = ""; // Clear suggestions after selection
         };
@@ -53,4 +64,17 @@ async function searchINatTaxons(query) {
 }
 
 
+
+  const form = document.getElementById('flashcard-form');
+
+  // On load, restore saved values
+  window.addEventListener('load', () => {
+    Array.from(form.elements).forEach(el => {
+      if (el.name && localStorage.getItem(el.name)) {
+        el.value = localStorage.getItem(el.name);
+      }
+    });
+  });
+
+  
 

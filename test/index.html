@@ -1,0 +1,43 @@
+<form>
+  <!-- TOP: Choice -->
+  <div class="form-top">
+    <label>
+      <input type="radio" name="formType" value="optionA" checked>
+      Detailed Form
+    </label>
+    <label>
+      <input type="radio" name="formType" value="optionB">
+      Simple Form
+    </label>
+  </div>
+
+  <!-- BOTTOM: Dynamic inner forms -->
+  <div class="form-bottom">
+    <!-- Form A -->
+    <div id="formA" class="form-bottom-inner">
+      <label for="field1">Field 1:</label>
+      <input type="text" id="field1" name="field1"><br>
+
+      <label for="field2">Field 2:</label>
+      <input type="text" id="field2" name="field2"><br>
+    </div>
+
+    <!-- Form B -->
+    <div id="formB" class="form-bottom-inner" style="display:none;">
+      <label for="singleField">Single Field:</label>
+      <input type="text" id="singleField" name="singleField">
+    </div>
+  </div>
+</form>
+
+<script>
+  // Toggle which form is visible
+  document.querySelectorAll('input[name="formType"]').forEach(radio => {
+    radio.addEventListener('change', e => {
+      document.getElementById('formA').style.display = 
+        e.target.value === 'optionA' ? 'block' : 'none';
+      document.getElementById('formB').style.display = 
+        e.target.value === 'optionB' ? 'block' : 'none';
+    });
+  });
+</script>

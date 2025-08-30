@@ -1,16 +1,11 @@
-
 .flashcard-form {
   max-width: 400px;
   width: 100%;
   height: 100%;
-  max-height: 100%; /* Limit height to parent's height */
-  overflow-y: auto; /* Enable vertical scroll if needed */
-  margin: 0 0; /* center form horizontally */
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 1rem;
-  padding: 1rem 0.1rem;
+  padding: 0.5rem;
   box-sizing: border-box;
 }
 
@@ -18,9 +13,51 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;  /* center content vertically within each half */
-  align-items: center;      /* center horizontally */
+  padding: 1rem 0rem;   /* adds space inside (top/bottom + left/right) */
+
 }
+
+.form-top-selector label {
+  font-family: inherit;   /* use same font as parent */
+  font-size: 1.1rem;        /* match other inputs/labels */
+  font-weight: 600;       /* match boldness of your other labels */
+  color: #b2c2b4;
+  display:flex; 
+  align-items:center;
+}
+
+.form-top-selector {
+  display: flex;
+  flex-wrap: wrap;           /* lets options wrap if container is too narrow */
+  align-items: center;       /* vertically center radios and separator */
+  gap: 0.5rem 1.5rem;               /* space between items */
+}
+
+
+.form-top-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  margin: auto 0; /* vertical centering */
+  padding: 1rem 0;
+  box-sizing: border-box;
+  align-items: stretch; /* <-- stretch children to full width */
+
+  
+}
+
+.form-bottom-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between; 
+  margin: auto 0;          /* vertical centering */
+  flex-direction: column;
+  align-items: stretch; /* <-- stretch children to full width */
+
+}
+
 
 .form-row {
   display: flex;
@@ -28,7 +65,8 @@
   width: 100%;
   align-items: center;
   position:relative;
-  margin: 0.5rem 0.5rem;
+  margin: 0.5rem 0.0rem;
+  
 
 }
 
@@ -105,9 +143,7 @@
   }
 
   
-  .flashcard-form {
-    gap:2rem;
-  }
+ 
 
   .form-row label {
     width: auto;
@@ -116,7 +152,7 @@
   }
 
   .form-row input {
-    width: 250px;
+    width: 244px;
   }
 }
 
@@ -134,7 +170,7 @@
 /* Generate button styling */
 .generate-btn {
   width: 100%;
-  padding: 1rem 0;
+  padding: 1rem 1rem;
   font-size: 1.15rem;
   font-weight: 700;
   color: #e2e8e4;
@@ -149,4 +185,12 @@
 .generate-btn:hover {
   background-color: #37483a;
   border-color: #5a7a5a;
+}
+
+
+.error-text{
+  text-align: center;
+  color: red;
+  font-weight: 700;
+  font-size: 1.15rem;
 }

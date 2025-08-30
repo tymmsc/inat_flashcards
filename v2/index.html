@@ -24,26 +24,55 @@
             <form id="flashcard-form" class="flashcard-form">
 
               <div class="form-top">
-                <div class="form-row">
-                  <label for="taxon-search">Taxon name:</label>
-                  <input type="text"  autocomplete="off" novalidate id="taxon-search" name="taxon-search"  placeholder="Seach for a taxon...">
-                  <input type="hidden" id="taxon-search-id">
-                  <ul id="suggestions" class="suggestions-dropdown"></ul>
-                </div>
-                <div class="form-row">
-                  <label for="location-search">Location:</label>
-                  <input type="text" id="location-search"  autocomplete="off" novalidate name="location" placeholder="Search for a location...">
-                     <input type="hidden" id="location-search-id">
-                     <ul id="suggestions-loc" class="suggestions-dropdown"></ul> 
-                </div>
-                <div class="form-row small-input">
-                  <label for="max-per-species">Max # per species:</label>
-                  <input type="number" id="max-per-species"  autocomplete="off" novalidate name="max-per-species" min="1" placeholder="4" />
-                </div>
-                </div>
+
+                  <div class="form-top-selector">
+                      <label>
+                        <input type="radio" name="topFormChoice" value="option1" checked>
+                        Manual input
+                      </label>
+                      <label>
+                        <input type="radio" name="topFormChoice" value="option2">
+                        iNat address
+                      </label>
+                    </div>
                 <hr class="divider" />
+
+                <div class = "form-top-inner option1">
+                  <div class="form-row">
+                    <label for="taxon-search">Taxon name:</label>
+                    <input type="text"  autocomplete="off" novalidate id="taxon-search" name="taxon-search"  placeholder="Seach for a taxon...">
+                    <input type="hidden" id="taxon-search-id">
+                    <ul id="suggestions" class="suggestions-dropdown"></ul>
+                  </div>
+                  <div class="form-row">
+                    <label for="location-search">Location:</label>
+                    <input type="text" id="location-search"  autocomplete="off" novalidate name="location" placeholder="Search for a location...">
+                      <input type="hidden" id="location-search-id">
+                      <ul id="suggestions-loc" class="suggestions-dropdown"></ul> 
+                  </div>
+                </div>
+                <div class = "form-top-inner option2" style="display:none">
+                  <div class="form-row">
+                    <label for="inat-search">iNat web address:</label>
+                    <input type="text"  autocomplete="off" novalidate id="inat-search" name="inat-search"  placeholder="Paste iNat address...">
+                </div>
+
+                </div>
+
+                <hr class="divider" />
+
                 <div class="form-bottom">
-                  <button type="submit" id="generate-btn" class="generate-btn">Generate flashcards</button>
+                  <div class="form-bottom-inner">
+                    <div class="form-row small-input">
+                      <label for="max-per-species">Max # per species:</label>
+                      <input type="number" id="max-per-species"  value=4 autocomplete="off" novalidate name="max-per-species" min="1" />
+                    </div>
+                  <div class="lower button">
+                      <button type="submit" id="generate-btn" class="generate-btn">Generate flashcards</button>
+                      <p class="error-text">error placeholder</p>
+                  </div>
+
+                </div>
                 </div>
                 </form>
         </div>
@@ -55,7 +84,9 @@
   </div>
 
   <script src="tabs_logic.js"></script>
-  <script src="search_suggestions.js" defer></script>
+  <script src="search_suggestions.js"></script>
+    <script src="search_form.js"></script>
+
 
 </body>
 </html>
