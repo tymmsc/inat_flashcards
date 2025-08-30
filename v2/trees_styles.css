@@ -38,7 +38,7 @@
 #species-table th {
     background-color: #37483a;
     color: #e2e8e4;
-    font-size: 1.3rem;
+    font-size: 0.9rem;
 }
 
 #species-table tr:nth-child(even) {

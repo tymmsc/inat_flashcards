@@ -18,18 +18,35 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0.75rem 0;
+  margin: 0.5rem 0;
+  margin-bottom: 0.1rem;
   box-sizing: border-box;
   border-radius: 8px;
   min-height: 200px; /* or something proportional */
 
 }
 
+.image-container img{
+  max-height: 98%;
+  object-fit: contain; /* keeps aspect ratio inside box */
+}
+
+#common-name{
+  font-size:0.8rem;
+  margin:0;
+}
+#scientific-name{
+  font-size: 1.1rem;
+  font-style: italic;
+  margin: 0;
+  font-weight: bold;
+}
 /* Name container keeps stable height */
 .name-container {
-  height: 3.5em; /* ~2–3 lines */
+  height: 2.5em; /* ~2–3 lines */
   text-align: center;
-  margin: 0.75rem 0;
+  margin: 0.5rem 0;
+  margin-top: 0.1rem;
   color: #e2e8e4;
 }
 
@@ -64,15 +81,16 @@
 
 /* Show-name button spacing */
 #show-button {
-  margin-bottom: 2.5rem; /* bigger gap before bottom buttons */
+  margin-bottom: 0rem; /* bigger gap before bottom buttons */
 }
 
 /* Bottom buttons */
 .answer-buttons {
   display: flex;
   justify-content: center;
-  gap: 4rem; /* more distance between Correct/Incorrect */
-  margin-bottom: 1.0rem;
+  gap: 2.5rem; /* more distance between Correct/Incorrect */
+  margin-bottom: 0.5rem;
+  margin-top: 0.7rem;
 }
 
 .answer-buttons button {

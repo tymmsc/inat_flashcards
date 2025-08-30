@@ -173,13 +173,13 @@ function retrieveInatAddress(){
         flashcards.sort(() => Math.random() - 0.5);
 
         // Setup flashcards display
-        //displayFlashcards(flashcards);
+        displayFlashcards(flashcards);
         document.querySelectorAll('.tab.disabled').forEach(tab => {
         tab.classList.remove('disabled');
               });
                   // Switch active class
       document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-      
+
       const cardsTabBtn = document.getElementById('cards-tab-btn');
       cardsTabBtn.classList.add('active');
 
@@ -376,6 +376,8 @@ function retrieveInatAddress(){
         const showButton = document.getElementById('show-button');
         const correctButton = document.getElementById('correct');
         const incorrectButton = document.getElementById('incorrect');
+        correctButton.disabled = true;
+        incorrectButton.disabled = true;
 
         let currentCardIndex = 0;
         const learned = [];
@@ -386,7 +388,7 @@ function retrieveInatAddress(){
         const flashcardNames = document.getElementById("flashcard-name");
         const nameContainer = flashcardNames;
 
-        flashcardContainer.style.display = "block";
+        //flashcardContainer.style.display = "block";
         updateFlashcard();
 
         document.getElementById("correct").addEventListener("click", () => {
@@ -396,7 +398,6 @@ function retrieveInatAddress(){
         });
 
         document.getElementById("incorrect").addEventListener("click", () => {
-
             nextCard();
         });
 
@@ -412,7 +413,7 @@ function retrieveInatAddress(){
         };
 
         showButton.onclick = function () {
-            nameContainer.style.display = 'block'; // Show the name
+            nameContainer.style.visibility = 'visible'; // Show the name
             correctButton.disabled = false; // Enable correct button
             incorrectButton.disabled = false; // Enable incorrect button
             showButton.disabled = true; // Disable show button
@@ -423,8 +424,10 @@ function retrieveInatAddress(){
             incorrectButton.disabled = true;
             showButton.disabled = false;
             const card = toLearn[currentCardIndex];
-            nameContainer.style.display = 'none';
-            nameContainer.innerHTML = `${card.commonName} (${card.scientificName})`;
+            nameContainer.style.visibility = 'hidden';
+            //nameContainer.innerHTML = `${card.commonName} (${card.scientificName})`;
+            document.getElementById("common-name").textContent = card.commonName;
+            document.getElementById("scientific-name").textContent = card.scientificName;
 
             const numberOfImages = Math.min(card.photos.length, 2);
 
@@ -433,15 +436,16 @@ function retrieveInatAddress(){
                 const img = document.createElement('img');
                 img.src = card.photos[i];
                 img.alt = `Image of ${card.species}`;
-                img.style.width = '45%'; // Adjust size as necessary
-                img.style.margin = '2.5%'; // Spacing between images
+                img.style.width = '98%'; // Adjust size as necessary
+                img.style.margin = '4%'; // Spacing between images
 
                 flashcardImages.appendChild(img);
+                break;
             }
 
             //flashcardImage.src = card.photos[0]; // Show first photo
             //flashcardNames.innerHTML = `<p>${card.species}</p>`;
-            progress.innerHTML = `Learned: ${learned.length}, Remaining: ${toLearn.length}`;
+            progress.innerHTML = `Remaining: ${toLearn.length} / ${toLearn.length + learned.length}`;
         };
 
         function reset() {
