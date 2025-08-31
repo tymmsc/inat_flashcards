@@ -3,6 +3,7 @@
   box-sizing: border-box;
 }
 
+
 body {
   margin: 0;
   padding: 0;
@@ -10,22 +11,21 @@ body {
   color: #e2e8e4;      /* Soft, off-white text */
   font-family: 'Segoe UI', Arial, sans-serif;
   min-width: 320px;
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow-x: hidden; /* Prevent horizontal scroll */
-  height: 100vh; /* Ensure body fills viewport height */
+  height: 100dvh; /* Ensure body fills viewport height */
 }
 .main-container {
   background: #242e27; /* Deep, muted green */
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
-  width: 90vw;
-  max-width: 500px;
+  width: 95vw;
+  max-width: 600px;
   min-width: 320px;
-  min-height: 95vh;
-  max-height: 95vh;
+  min-height: 100dvh;
+  max-height: 100dvh;
   height: auto; /* Fill full viewport height */
   display: flex;
   flex-direction: column;
