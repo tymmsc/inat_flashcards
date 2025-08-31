@@ -53,9 +53,9 @@
 /* Buttons (shared style) */
 .tab-content button {
   font-family: inherit;
-  font-size: 1.2rem;
-  font-weight: 700;
-  padding: 0.9rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.7rem 1rem;
   border-radius: 12px;
   border: 2px solid #3a4d3c;
   background-color: #242e27;
@@ -89,10 +89,19 @@
   display: flex;
   justify-content: center;
   gap: 2.5rem; /* more distance between Correct/Incorrect */
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.1rem;
   margin-top: 0.7rem;
 }
 
 .answer-buttons button {
   min-width: 130px; /* larger buttons */
+}
+
+
+/* Divider line above button */
+#card-tab .divider {
+  width: 100%;
+  border: none;
+  border-top: 1.0px solid #5b5b5b;
+  margin: 0.5rem 0 0.1rem 0;
 }

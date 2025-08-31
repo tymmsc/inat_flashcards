@@ -10,7 +10,7 @@
 
 #table-tab {
     width: 100%;
-    padding: 1rem;
+    padding: 0.2rem;
     box-sizing: border-box;
     overflow: auto; /* scroll if table is too big */
     background-color: #242e27; /* dark background */
@@ -57,7 +57,7 @@
 /* ----------------- Tree Tab ----------------- */
 #tree-tab {
     width: 100%;
-    padding: 1rem;
+    padding: 0.2rem;
     box-sizing: border-box;
     overflow: auto; /* allow scroll in both directions */
     background-color: #242e27;

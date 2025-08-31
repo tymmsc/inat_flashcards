@@ -31,7 +31,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start; /* Align children to top */
-    padding: 0.7rem 1.5rem 1.5rem 1.5rem;
+    padding: 0.4rem 0.8rem 0.8rem 0.8rem;
   padding-top: 0rem;
   overflow: hidden; /* Prevent internal scroll */
 }
@@ -75,7 +75,7 @@ body {
   flex: 1 1 auto;
   background: #37483a; /* Slightly lighter than main container */
   box-sizing: border-box;
-  padding: 1rem 1rem;
+  padding: 0.8rem 0.8rem;
   display: flex;
   align-items: stretch;
   justify-content: center;
