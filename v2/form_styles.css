@@ -156,11 +156,11 @@
   }
 
   .form-row input {
-    width: 250px;
+    width: 265px;
   }
 
   .suggestions-dropdown{
-        max-width: 250px;
+        max-width: 265px;
   }
 }
 
@@ -209,7 +209,7 @@
 
 .error-text{
   text-align: center;
-  color: red;
+  color: #DC2626;
   font-weight: 700;
   font-size: 1.15rem;
 }

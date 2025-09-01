@@ -1,3 +1,11 @@
+function lockScreenToPortrait(){
+  if (screen.orientation && screen.orientation.lock) {
+    screen.orientation.lock("portrait").catch(err => {
+      console.log("Orientation lock not supported:", err);
+    });
+  }
+}
+
 //convert inat search address to api 
 function convertToApiUrl(webUrl) {
     let url;
@@ -83,9 +91,11 @@ function setError(isError){
   //function that generates flashcards 
     document.getElementById('generate-btn').addEventListener('click', async function(event) {
         event.preventDefault();
+        //lockScreenToPortrait();
         reset();
         try{
           apiUrl = retrieveInatAddress();
+          console.log(apiUrl);
           const url_obj = new URL(apiUrl);
           taxonId = url_obj.searchParams.get('taxon_id');
           console.log(taxonId);
@@ -140,8 +150,14 @@ function setError(isError){
             globalTree = mergeTrees(trees);
 
             globalTree = Object.values(globalTree)[0];
-
-            searchRank = taxonMap[taxonId].rank;
+            try{
+              searchRank = taxonMap[taxonId].rank;
+            }
+            catch(e){
+              setError(true);
+              errorDiv.textContent = 'Invalid taxon';
+              return;
+            }
 
 
             const speciesCount = {};

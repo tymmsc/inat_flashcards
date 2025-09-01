@@ -2,6 +2,12 @@ document.getElementById("location-search").addEventListener("input", function ()
     searchINatPlaces(this.value);
 });
 document.getElementById("taxon-search").addEventListener("input", function () {
+    let e1 = document.getElementById("taxon-search");
+    let e2 = document.getElementById("taxon-search-id");
+    e2.value = '';
+    localStorage.setItem(e1.name, '');
+    localStorage.setItem(e2.name, '');
+
     searchINatTaxons(this.value);
 });
 
