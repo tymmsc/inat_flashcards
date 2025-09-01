@@ -91,7 +91,7 @@ function setError(isError){
   //function that generates flashcards 
     document.getElementById('generate-btn').addEventListener('click', async function(event) {
         event.preventDefault();
-        //lockScreenToPortrait();
+        lockScreenToPortrait();
         reset();
         try{
           apiUrl = retrieveInatAddress();
