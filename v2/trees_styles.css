@@ -33,6 +33,7 @@
     padding: 0.5rem 0.75rem;
     text-align: left;
     word-wrap: break-word;
+    font-size: 0.75rem;
 }
 
 #species-table th {
@@ -40,6 +41,8 @@
     color: #e2e8e4;
     font-size: 0.9rem;
 }
+
+
 
 #species-table tr:nth-child(even) {
     background-color: #2d3a2d;

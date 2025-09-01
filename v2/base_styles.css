@@ -45,6 +45,8 @@ body {
   }
   .content-container {
     font-size: 1.1rem;
+    padding: 0.8rem 0.8rem;
+
   }
 
 }
@@ -75,7 +77,6 @@ body {
   flex: 1 1 auto;
   background: #37483a; /* Slightly lighter than main container */
   box-sizing: border-box;
-  padding: 0.8rem 0.8rem;
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -84,6 +85,8 @@ body {
   min-height: 0;
   position:relative;
   overflow:hidden;
+  padding: 0.8rem 0rem;
+
 
 }
 

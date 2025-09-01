@@ -1,8 +1,16 @@
 /* General text styles (match your forms) */
-#progress,
+
 #flashcard-name {
   font-family: inherit;
   font-size: 1.1rem;
+  font-weight: 600;
+  color: #b2c2b4;
+  text-align: center;
+}
+
+#progress{
+  font-family: inherit;
+  font-size: 0.9rem;
   font-weight: 600;
   color: #b2c2b4;
   text-align: center;
@@ -53,7 +61,7 @@
 /* Buttons (shared style) */
 .tab-content button {
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 1.0rem;
   font-weight: 600;
   padding: 0.7rem 1rem;
   border-radius: 12px;

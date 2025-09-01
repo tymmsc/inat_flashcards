@@ -7,6 +7,13 @@
   align-items: stretch;
   padding: 0.4rem;
   box-sizing: border-box;
+
+
+}
+
+#search-tab{
+  margin-left: 0.7rem;
+  margin-right: 0.7rem;
 }
 
 .form-top, .form-bottom {
@@ -100,7 +107,6 @@
     position: absolute;
     top:100%;
     width: 100%; /* Keep it narrow */
-    max-width: 250px;
     right:0;
     background: #ffffff; /* White background */
     list-style: none; /* Remove bullets */
@@ -138,8 +144,6 @@
     justify-content: space-between;
     align-items: center;
     gap: .8rem;
-    
-    
   }
 
   
@@ -152,7 +156,11 @@
   }
 
   .form-row input {
-    width: 244px;
+    width: 250px;
+  }
+
+  .suggestions-dropdown{
+        max-width: 250px;
   }
 }
 
@@ -171,7 +179,7 @@
 .generate-btn {
   width: 100%;
   padding: 1rem 1rem;
-  font-size: 1.15rem;
+  font-size: 1.7rem;
   font-weight: 700;
   color: #e2e8e4;
   background-color: #242e27;
@@ -204,4 +212,11 @@
   color: red;
   font-weight: 700;
   font-size: 1.15rem;
+}
+.loading-text {
+  color: #4CAF50;
+    font-weight: 700;
+  font-size: 1.15rem;
+    text-align: center;
+
 }

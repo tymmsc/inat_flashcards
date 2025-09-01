@@ -30,7 +30,7 @@ function convertToApiUrl(webUrl) {
 function retrieveInatAddress(){
   const radio_selected = document.querySelector('input[name="topFormChoice"]:checked').value;
   errorDiv = document.getElementById('error-text');
-  errorDiv.textContent='';
+  errorDiv.textContent='***';
 
   if (radio_selected === 'option1') {
       const taxonId = document.getElementById('taxon-search-id').value;
@@ -62,16 +62,28 @@ function retrieveInatAddress(){
 
       }
       catch (e){
+          setError(true);
           errorDiv.textContent = e.message;
       }
     }
 }
 
+function setError(isError){
+    if(isError){
+       errorDiv.classList.add('error-text');
+        errorDiv.classList.remove('loading-text');
+    }
+    else{
+        errorDiv.classList.remove('error-text');
+        errorDiv.classList.add('loading-text');
+    }
+}
 
 
   //function that generates flashcards 
     document.getElementById('generate-btn').addEventListener('click', async function(event) {
         event.preventDefault();
+        reset();
         try{
           apiUrl = retrieveInatAddress();
           const url_obj = new URL(apiUrl);
@@ -91,6 +103,8 @@ function retrieveInatAddress(){
         let allSpecies = [];
         let page = 1;
         console.log('searching...')
+        setError(false);
+        errorDiv.textContent = "Generating..."
         try {
               // Remove "disabled" class from all tabs except the first
 
@@ -108,6 +122,13 @@ function retrieveInatAddress(){
 
             //Get all unique species in seenSpecies
             const uniqueObservations = filterUniqueSpecies(observations);
+            if(observations.length < 1){
+              setError(true);
+              errorDiv.textContent = 'No observations found!'
+              return;
+            }
+
+
             taxonMap = await fetchTaxonDetailsBatch(uniqueObservations);
 
             const nameToRankMap = {};
@@ -186,7 +207,7 @@ function retrieveInatAddress(){
       // Switch the content
       document.querySelectorAll('.tab-content').forEach(tc => tc.style.display = 'none');
       document.getElementById('card-tab').style.display = 'flex'; // or 'block' depending on layout
-
+      errorDiv.textContent = '***';
 
         } catch (error) {
             console.error('Error fetching data from iNaturalist API:', error);
@@ -370,7 +391,10 @@ function retrieveInatAddress(){
     }
 
 
- 
+let currentCardIndex = 0;
+let learned = [];
+let toLearn = [];
+
 
     function displayFlashcards(flashcards) {
         const showButton = document.getElementById('show-button');
@@ -379,9 +403,9 @@ function retrieveInatAddress(){
         correctButton.disabled = true;
         incorrectButton.disabled = true;
 
-        let currentCardIndex = 0;
-        const learned = [];
-        const toLearn = [...flashcards];
+        currentCardIndex = 0;
+        learned = [];
+        toLearn = [...flashcards];
 
         const flashcardContainer = document.getElementById("flashcards-container");
         const flashcardImages = document.getElementById("flashcard-images");
@@ -447,14 +471,37 @@ function retrieveInatAddress(){
             //flashcardNames.innerHTML = `<p>${card.species}</p>`;
             progress.innerHTML = `Remaining: ${toLearn.length} / ${toLearn.length + learned.length}`;
         };
-
-        function reset() {
-            learned.length = 0;
-            toLearn.length = 0;
-            flashcardContainer.style.display = "none";
-            document.getElementById("results").innerHTML = "";
-        };
-
-
-
     }
+
+function reset() {
+    // Clear flashcard progress
+        learned = [];
+    toLearn = [];
+    currentCardIndex = 0;
+
+    // Hide UI pieces
+    const flashcardContainer = document.getElementById("flashcards-container");
+    if (flashcardContainer) flashcardContainer.style.display = "none";
+
+    const progress = document.getElementById("progress");
+    if (progress) progress.innerHTML = "";
+
+    const results = document.getElementById("results");
+    if (results) results.innerHTML = "";
+
+    const tbody = document.getElementById('species-tbody');
+    if (tbody) tbody.innerHTML = "";
+
+    // Reset globals
+    window.currentCardIndex = 0;
+    window.flashcards = [];
+
+    const correctButton = document.getElementById("correct");
+    const incorrectButton = document.getElementById("incorrect");
+    const showButton = document.getElementById("show-button");
+
+    // These must be the same function references used in addEventListener
+    correctButton.replaceWith(correctButton.cloneNode(true));
+    incorrectButton.replaceWith(incorrectButton.cloneNode(true));
+    showButton.replaceWith(showButton.cloneNode(true));
+}
