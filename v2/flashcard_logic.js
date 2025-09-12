@@ -421,6 +421,7 @@ let toLearn = [];
 
         currentCardIndex = 0;
         learned = [];
+        incorrect = [];
         toLearn = [...flashcards];
 
         const flashcardContainer = document.getElementById("flashcards-container");
@@ -438,17 +439,26 @@ let toLearn = [];
         });
 
         document.getElementById("incorrect").addEventListener("click", () => {
+            incorrect.push(toLearn[currentCardIndex]);
+            toLearn.splice(currentCardIndex, 1);
             nextCard();
         });
 
         function nextCard() {
             //toLearn.splice(currentCardIndex, 1);
             if (toLearn.length === 0) {
-                alert("You've completed the flashcards!");
-                reset();
-                return;
+                if(incorrect.length === 0){
+                     alert("You've completed the flashcards!");
+                    reset();
+                    return;
+                }
+                else{
+                    incorrect.sort(() => Math.random() - 0.5);
+                    toLearn = incorrect;
+                    incorrect = [];
+                }
             }
-            currentCardIndex = Math.floor(Math.random() * toLearn.length);
+            //currentCardIndex = Math.floor(Math.random() * toLearn.length);
             updateFlashcard();
         };
 
@@ -485,7 +495,7 @@ let toLearn = [];
 
             //flashcardImage.src = card.photos[0]; // Show first photo
             //flashcardNames.innerHTML = `<p>${card.species}</p>`;
-            progress.innerHTML = `Remaining: ${toLearn.length} / ${toLearn.length + learned.length}`;
+            progress.innerHTML = `Remaining: ${toLearn.length+incorrect.length} / ${toLearn.length + incorrect.length + learned.length}`;
         };
     }
 
