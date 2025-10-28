@@ -8,10 +8,12 @@ function lockScreenToPortrait(){
 
 //convert inat search address to api 
 function convertToApiUrl(webUrl) {
+    console.log("URL raw:", JSON.stringify(webUrl));
     let url;
     try {
-        url = new URL(webUrl);
+        url = new URL(webUrl.trim());
     } catch (e) {
+        console.log(e);
         throw new Error('Invalid URL');
     }
 
@@ -57,15 +59,14 @@ function retrieveInatAddress(){
         if (taxonId) {
             apiUrl += `&taxon_id=${taxonId}`;
         }
-        console.log(apiUrl);
         return apiUrl;
       }
     else {
 
       try{
-        apiUrl = convertToApiUrl(document.getElementById('inat-search').value);
-        console.log(apiUrl);
-        url.searchParams.get('taxon_id');
+        url_str = document.getElementById('inat-search').value;
+        apiUrl = convertToApiUrl(url_str);
+        //url.searchParams.get('taxon_id');
         return apiUrl;
 
       }
@@ -95,6 +96,8 @@ function setError(isError){
         reset();
         try{
           apiUrl = retrieveInatAddress();
+        console.log("api url in click that should come from retrieve: ", apiUrl);
+
           console.log(apiUrl);
           const url_obj = new URL(apiUrl);
           taxonId = url_obj.searchParams.get('taxon_id');
