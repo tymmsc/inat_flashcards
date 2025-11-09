@@ -52,9 +52,20 @@ function retrieveInatAddress(){
       let apiUrl = `https://api.inaturalist.org/v1/observations?rank=species&quality_grade=research`;
 
         //if a specific location is selected, add it to the query
-        if (locId) {
+         // --- DEV DROPDOWN LOGIC ---
+    // Check if dev dropdown exists & has a selection
+    const devDropdown = document.getElementById('location-select');
+    const devValue = devDropdown ? devDropdown.value : "";
+
+            if (devValue) {
+            // If you selected a dev dropdown value, use its parameters instead of place_id
+            apiUrl += `&${devValue}`;
+            } else if (locId) {
+            // Otherwise, fall back to normal place_id logic
             apiUrl += `&place_id=${locId}`;
-        }
+            }
+            // --- END DEV LOGIC ---
+
         // If a specific taxon ID is selected, add it to the query
         if (taxonId) {
             apiUrl += `&taxon_id=${taxonId}`;
