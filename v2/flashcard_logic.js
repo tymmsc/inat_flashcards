@@ -6,14 +6,31 @@ function lockScreenToPortrait(){
   }
 }
 
+
 //convert inat search address to api 
 function convertToApiUrl(webUrl) {
+    const ICONIC_TAXA_IDS = {
+        'Animalia': 1,
+        'Actinopterygii': 47178,
+        'Amphibia': 20978,
+        'Reptilia': 26036,
+        'Aves': 3,
+        'Mammalia': 40151,
+        'Insecta': 47158,
+        'Arachnida': 47119,
+        'Mollusca': 47115,
+        'Plantae': 47126,
+        'Fungi': 47170,
+        'Protozoa': 47686,
+        'Chromista': 48222,
+    };
     console.log("URL raw:", JSON.stringify(webUrl));
     let url;
     try {
         url = new URL(webUrl.trim());
     } catch (e) {
-        console.log(e);
+        console.log('ERROR:');
+        console.error(e);
         throw new Error('Invalid URL');
     }
 
@@ -32,6 +49,17 @@ function convertToApiUrl(webUrl) {
     url.pathname = '/v1/observations';
 
     url.searchParams.set('rank', 'species');
+    
+    const iconicTaxa = url.searchParams.get('iconic_taxa');
+    if (iconicTaxa && !url.searchParams.get('taxon_id')) {
+        const taxonId = ICONIC_TAXA_IDS[iconicTaxa];
+        if (taxonId) {
+            url.searchParams.set('taxon_id', taxonId);
+            url.searchParams.delete('iconic_taxa');
+        } else {
+            throw new Error(`Unrecognized iconic_taxa: "${iconicTaxa}"`);
+        }
+    }
 
     // Return the new API URL as string
     return url.toString();
@@ -75,9 +103,11 @@ function retrieveInatAddress(){
     else {
 
       try{
+        console.log("search by url");
         url_str = document.getElementById('inat-search').value;
         apiUrl = convertToApiUrl(url_str);
         //url.searchParams.get('taxon_id');
+        console.log(apiUrl);
         return apiUrl;
 
       }
@@ -164,11 +194,13 @@ function setError(isError){
             globalTree = mergeTrees(trees);
 
             globalTree = Object.values(globalTree)[0];
+            console.log(taxonId);
             try{
               searchRank = taxonMap[taxonId].rank;
             }
             catch(e){
               setError(true);
+              console.log(e);
               errorDiv.textContent = 'Invalid taxon';
               return;
             }
